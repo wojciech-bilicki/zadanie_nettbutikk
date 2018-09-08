@@ -1,13 +1,22 @@
 import { createModel } from '@rematch/core';
 
-import { getCurrencyCodes } from 'src/CurrencyCodes/currencyCodes.api';
+import { CurrencyEntry, getCurrencyCodes } from 'src/CurrencyCodes/currencyCodes.api';
 
-const currencyCodes = createModel({
+interface CurrenyCodesState {
+  currencyCodes: CurrencyEntry[] | null;
+}
+
+const currencyCodes = createModel<CurrenyCodesState>({
   state: null,
+  reducers: {
+    currencyCodesLoaded(state: CurrenyCodesState, payload: CurrencyEntry[]) {
+      return { ...state, currencyCodes: payload }
+    }
+  },
   effects: {
     async loadCountryCodes() {
-      console.log('Load country codes');
-      await getCurrencyCodes();
+      const codes = await getCurrencyCodes();
+      this.currencyCodesLoaded(codes);
     }
   }
 })
