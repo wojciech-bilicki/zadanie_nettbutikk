@@ -58,7 +58,7 @@ const CurrencyTable: SFC<Props> = ({ codes, addToFavourites }: Props) => (
 
 const mapDispatch = (dispatch: StoreDispatch) => ({
   loadCurrencyCodes: dispatch.currencyCodes.loadCountryCodes,
-  addToFavourites: (code: string) => console.log(code)
+  addToFavourites: dispatch.favourites.addToFavourites
 })
 
 const mapState = (state: StoreState) => ({
