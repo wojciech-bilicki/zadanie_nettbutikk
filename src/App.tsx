@@ -14,8 +14,8 @@ class App extends React.Component {
         <Header />
 
         <Grid container={true}>
-          <Grid item={true} xs={6} >Your currencies</Grid>
-          <Grid item={true} xs={6} >
+          <Grid item={true} xs={4} >Your currencies</Grid>
+          <Grid item={true} xs={8} >
             <CurrencyTable />
           </Grid>
         </Grid>

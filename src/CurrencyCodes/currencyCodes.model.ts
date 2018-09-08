@@ -2,15 +2,17 @@ import { createModel } from '@rematch/core';
 
 import { CurrencyEntry, getCurrencyCodes } from 'src/CurrencyCodes/currencyCodes.api';
 
-interface CurrenyCodesState {
-  currencyCodes: CurrencyEntry[] | null;
+export interface CurrencyCodesState {
+  codes: CurrencyEntry[] | null;
 }
 
-const currencyCodes = createModel<CurrenyCodesState>({
-  state: null,
+const currencyCodes = createModel<CurrencyCodesState>({
+  state: {
+    codes: null
+  },
   reducers: {
-    currencyCodesLoaded(state: CurrenyCodesState, payload: CurrencyEntry[]) {
-      return { ...state, currencyCodes: payload }
+    currencyCodesLoaded(state: CurrencyCodesState, payload: CurrencyEntry[]) {
+      return { ...state, codes: payload }
     }
   },
   effects: {
