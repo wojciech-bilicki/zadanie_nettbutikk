@@ -26,6 +26,7 @@
       "time",
       "timeEnd",
       "trace"
-    ]
+    ],
+    "jsx-no-lambda": false
   }
 }

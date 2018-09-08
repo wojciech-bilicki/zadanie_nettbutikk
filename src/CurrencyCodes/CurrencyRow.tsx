@@ -6,7 +6,8 @@ import styled from 'styled-components';
 import { CurrencyEntry } from 'src/CurrencyCodes/currencyCodes.api';
 
 interface Props {
-  code: CurrencyEntry
+  code: CurrencyEntry,
+  onAddCode: (code: string) => void;
 }
 
 const CountryFlag = styled.img`
@@ -15,23 +16,35 @@ const CountryFlag = styled.img`
   margin-right: 8px;
 `;
 
-const CurrencyRow: SFC<Props> = ({ code }: Props) => (
+const CurrencyTableCell = styled(TableCell)`
+  && {
+    padding: 8px;
+  }
+`;
+
+const AddButton = styled(Button)`
+  && {
+    color: #12838b;
+  }
+`;
+
+const CurrencyRow: SFC<Props> = ({ code, onAddCode }: Props) => (
   <TableRow>
-    <TableCell>
+    <CurrencyTableCell>
       {code.name}
-    </TableCell>
-    <TableCell>
+    </CurrencyTableCell>
+    <CurrencyTableCell>
       {code.code}
-    </TableCell>
-    <TableCell>
+    </CurrencyTableCell>
+    <CurrencyTableCell>
       {code.symbol}
-    </TableCell>
-    <TableCell>
+    </CurrencyTableCell>
+    <CurrencyTableCell>
       {code.countries.map(country => <Tooltip title={country.name} key={country.name}><CountryFlag src={country.flag} /></Tooltip>)}
-    </TableCell>
-    <TableCell>
-      <Button>Add to favourites</Button>
-    </TableCell>
+    </CurrencyTableCell>
+    <CurrencyTableCell>
+      <AddButton onClick={() => onAddCode(code.code)}>Add to favourites</AddButton>
+    </CurrencyTableCell>
   </TableRow>
 );
 
