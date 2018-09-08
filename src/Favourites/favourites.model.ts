@@ -1,4 +1,6 @@
 import { createModel } from '@rematch/core';
+import { toast } from "react-toastify";
+
 import { CurrencyRating, getCurrencyRating } from 'src/Favourites/favourites.api'
 
 export interface FavouritesState {
@@ -33,6 +35,8 @@ const favouritesModel = createModel({
       if (ratingEntry) {
         stashCode(code);
         this.currencyRatingLoaded(ratingEntry);
+      } else {
+        toast.error(`We couldn't find ratings for code ${code} ;(. Try different currency`)
       }
     },
     async loadRatingsForCodes(codes: string[]) {

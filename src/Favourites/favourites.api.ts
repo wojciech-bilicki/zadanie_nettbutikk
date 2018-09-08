@@ -20,7 +20,11 @@ const getCurrencyRating = async (code: string): Promise<CurrencyRating | null> =
   }
 
   if (ratings) {
-    return ratings.filter<CurrencyRating>((entry: CurrencyRating | null): entry is CurrencyRating => entry !== null).reduce<CurrencyRating>((acc, entry) => {
+    const nonEmptyRatings = ratings.filter<CurrencyRating>((entry: CurrencyRating | null): entry is CurrencyRating => entry !== null)
+    if (nonEmptyRatings.length === 0) {
+      return null
+    }
+    return nonEmptyRatings.reduce<CurrencyRating>((acc, entry) => {
       if (acc.hasOwnProperty('rates')) {
         acc.rates = acc.rates.concat(entry.rates);
         return acc;

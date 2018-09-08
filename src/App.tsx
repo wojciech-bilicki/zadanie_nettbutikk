@@ -1,6 +1,8 @@
 
 import { CssBaseline, Grid } from '@material-ui/core';
 import * as React from 'react';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import styled from 'styled-components';
 
 import { CurrencyTable } from 'src/CurrencyCodes';
@@ -32,6 +34,7 @@ class App extends React.Component {
           </Grid>
         </TablesGrid>
         <a href="https://www.freepik.com/free-photos-vectors/business">Business vector created by Freepik</a>
+        <ToastContainer />
       </div>
     );
   }
