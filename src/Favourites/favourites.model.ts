@@ -2,6 +2,7 @@ import { createModel } from '@rematch/core';
 import * as R from 'ramda';
 import { toast } from "react-toastify";
 
+import { dispatch } from 'src/config/store';
 import { CurrencyRating, getCurrencyRating } from 'src/Favourites/favourites.api'
 
 export interface FavouritesState {
@@ -39,7 +40,9 @@ const favouritesModel = createModel({
       if (ratingEntry) {
         stashCode(code);
         this.currencyRatingLoaded(ratingEntry);
+        toast.success(`${code} added to favourites`);
       } else {
+        dispatch.unavailables.onCodeUnavailable(code);
         toast.error(`We couldn't find ratings for code ${code} ;(. Try different currency`)
       }
     },
@@ -48,8 +51,8 @@ const favouritesModel = createModel({
       this.ratingsLoaded(ratingEntires);
     },
     async removeRatingForCode(code: string) {
-      removeFromStash(code);
       this.removeFromFavourites(code);
+      removeFromStash(code);
     },
   },
   selectors: {

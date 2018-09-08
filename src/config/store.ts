@@ -2,11 +2,12 @@ import { ExtractRematchSelectorsFromModels, init, RematchDispatch, RematchRootSt
 import selectPlugin, { getSelect } from '@rematch/select';
 import { currencyCodes } from 'src/CurrencyCodes';
 import { favourites as favouritesModel } from 'src/Favourites';
-
+import unavailables from 'src/Unavailables/unavailables.model';
 
 const models = {
   currencyCodes,
-  favouritesModel
+  favouritesModel,
+  unavailables
 }
 
 type modelsType = typeof models;

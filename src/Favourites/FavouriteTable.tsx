@@ -1,4 +1,4 @@
-import { Paper, TableBody, TableCell, TableHead, Typography } from '@material-ui/core'
+import { Paper, TableBody, TableCell, TableHead, TableRow, Typography } from '@material-ui/core'
 import React, { SFC } from 'react';
 import { connect } from 'react-redux';
 
@@ -34,15 +34,17 @@ const FavouriteTable: SFC<Props> = ({ favourites, removeFavourite }: Props) => {
       <TableTitle variant="title">Your favourite currencies</TableTitle>
       <StyledTable>
         <TableHead>
-          <TableCell>
-            Currency name
+          <TableRow>
+            <TableCell>
+              Currency name
       </TableCell>
-          <TableCell>
-            Ratings
+            <TableCell>
+              Ratings
       </TableCell>
-          <TableCell>
-            Actions
+            <TableCell>
+              Actions
       </TableCell>
+          </TableRow>
         </TableHead>
         <TableBody>
           {favourites && favourites.map(favourite => <FavouriteRow onRemove={() => removeFavourite(favourite.code)} key={favourite.code} favourite={favourite} />)}

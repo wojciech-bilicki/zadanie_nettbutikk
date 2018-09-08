@@ -13,8 +13,9 @@ import './App.css';
 
 const TablesGrid = styled(Grid)`
   && { 
-    margin-top: 32px;
+    margin: 32px 0;
     padding: 0 16px;
+    width: 100%;
     };
 `;
 
