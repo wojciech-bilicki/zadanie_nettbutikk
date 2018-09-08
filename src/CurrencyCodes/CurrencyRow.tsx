@@ -9,6 +9,7 @@ import { CurrencyEntry } from 'src/CurrencyCodes/currencyCodes.api';
 interface Props {
   code: CurrencyEntry,
   onAddCode: (code: string) => void;
+  isAddingDisabled: boolean;
 }
 
 const CountryFlag = styled.img`
@@ -25,7 +26,7 @@ const AddButton = styled(Button)`
   }
 `;
 
-const CurrencyRow: SFC<Props> = ({ code, onAddCode }: Props) => (
+const CurrencyRow: SFC<Props> = ({ code, onAddCode, isAddingDisabled }: Props) => (
   <TableRow>
     <StyledTableCell>
       {code.name}
@@ -40,7 +41,7 @@ const CurrencyRow: SFC<Props> = ({ code, onAddCode }: Props) => (
       {code.countries.map(country => <Tooltip title={country.name} key={country.name}><CountryFlag src={country.flag} /></Tooltip>)}
     </StyledTableCell>
     <StyledTableCell>
-      <AddButton onClick={() => onAddCode(code.code)}>Add to favourites</AddButton>
+      <AddButton disabled={isAddingDisabled} onClick={() => onAddCode(code.code)}>Add to favourites</AddButton>
     </StyledTableCell>
   </TableRow>
 );

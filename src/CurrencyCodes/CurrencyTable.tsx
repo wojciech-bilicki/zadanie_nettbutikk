@@ -5,7 +5,7 @@ import { compose } from 'redux';
 
 import onLoad from 'src/components/onLoad';
 import { StyledTable, TableTitle } from 'src/components/TableComponents';
-import { StoreDispatch, StoreState } from 'src/config/store';
+import { select, StoreDispatch, StoreState } from 'src/config/store';
 import { CurrencyCodesState } from 'src/CurrencyCodes/currencyCodes.model';
 import CurrencyRow from 'src/CurrencyCodes/CurrencyRow'
 
@@ -14,14 +14,14 @@ interface DispatchProps {
   addToFavourites: (code: string) => void;
 }
 
-type StateProps = CurrencyCodesState;
+type StateProps = CurrencyCodesState & {
+  favouriteCodes: string[] | null;
+};
 
 type Props = DispatchProps & StateProps;
 
 
-
-
-const CurrencyTable: SFC<Props> = ({ codes, addToFavourites }: Props) => (
+const CurrencyTable: SFC<Props> = ({ codes, addToFavourites, favouriteCodes }: Props) => (
   <>
     <Paper>
       <TableTitle variant="title">Currencies of the world</TableTitle>
@@ -44,7 +44,11 @@ const CurrencyTable: SFC<Props> = ({ codes, addToFavourites }: Props) => (
         </TableCell>
         </TableHead>
         <TableBody>
-          {codes && codes.map(code => <CurrencyRow onAddCode={addToFavourites} code={code} key={code.code} />)}
+          {codes && codes.map(code =>
+            <CurrencyRow
+              isAddingDisabled={favouriteCodes ? favouriteCodes.includes(code.code) : false}
+              onAddCode={addToFavourites} code={code} key={code.code}
+            />)}
         </TableBody>
       </StyledTable>
     </Paper>
@@ -53,11 +57,12 @@ const CurrencyTable: SFC<Props> = ({ codes, addToFavourites }: Props) => (
 
 const mapDispatch = (dispatch: StoreDispatch) => ({
   loadCurrencyCodes: dispatch.currencyCodes.loadCountryCodes,
-  addToFavourites: dispatch.favouritesModel.addToFavourites
+  addToFavourites: dispatch.favouritesModel.addToFavourites,
 })
 
 const mapState = (state: StoreState) => ({
-  codes: state.currencyCodes.codes
+  codes: state.currencyCodes.codes,
+  favouriteCodes: select.favouritesModel.getFavouriteCodes(state)
 })
 
 
