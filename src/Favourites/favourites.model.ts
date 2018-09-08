@@ -1,15 +1,24 @@
 import { createModel } from '@rematch/core';
 import { CurrencyRating, getCurrencyRating } from 'src/Favourites/favourites.api'
 
-interface FavouritesModel {
+export interface FavouritesState {
   favourites: CurrencyRating[] | null;
 }
 
-const favourites = createModel<null>({
-  state: null,
+const initialState: FavouritesState = {
+  favourites: null
+}
+
+const favouritesModel = createModel({
+  state: initialState,
   reducers: {
     currencyRatingLoaded(state, payload) {
-      return { ...state, payload }
+      console.log(state.favourites === null)
+      if (state.favourites === null) {
+        return { favourites: [payload] }
+      } else {
+        return { favourites: state.favourites.concat(payload) }
+      }
     }
   },
   effects: {
@@ -35,4 +44,4 @@ const stashCode = (code: string) => {
   }
 }
 
-export default favourites;
+export default favouritesModel;

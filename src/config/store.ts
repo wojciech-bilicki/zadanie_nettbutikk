@@ -1,11 +1,11 @@
 import { init, RematchDispatch, RematchRootState } from '@rematch/core';
 import { currencyCodes } from 'src/CurrencyCodes';
-import { favourites } from 'src/Favourites';
+import { favourites as favouritesModel } from 'src/Favourites';
 
 
 const models = {
   currencyCodes,
-  favourites
+  favouritesModel
 }
 
 type modelsType = typeof models;

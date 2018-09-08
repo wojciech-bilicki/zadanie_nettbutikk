@@ -1,8 +1,9 @@
-import { Button, TableCell, TableRow, Tooltip } from '@material-ui/core';
+import { Button, TableRow, Tooltip } from '@material-ui/core';
 import React, { SFC } from 'react';
 import styled from 'styled-components';
 
 
+import { StyledTableCell } from 'src/components/TableComponents';
 import { CurrencyEntry } from 'src/CurrencyCodes/currencyCodes.api';
 
 interface Props {
@@ -16,11 +17,7 @@ const CountryFlag = styled.img`
   margin-right: 8px;
 `;
 
-const CurrencyTableCell = styled(TableCell)`
-  && {
-    padding: 8px;
-  }
-`;
+
 
 const AddButton = styled(Button)`
   && {
@@ -30,21 +27,21 @@ const AddButton = styled(Button)`
 
 const CurrencyRow: SFC<Props> = ({ code, onAddCode }: Props) => (
   <TableRow>
-    <CurrencyTableCell>
+    <StyledTableCell>
       {code.name}
-    </CurrencyTableCell>
-    <CurrencyTableCell>
+    </StyledTableCell>
+    <StyledTableCell>
       {code.code}
-    </CurrencyTableCell>
-    <CurrencyTableCell>
+    </StyledTableCell>
+    <StyledTableCell>
       {code.symbol}
-    </CurrencyTableCell>
-    <CurrencyTableCell>
+    </StyledTableCell>
+    <StyledTableCell>
       {code.countries.map(country => <Tooltip title={country.name} key={country.name}><CountryFlag src={country.flag} /></Tooltip>)}
-    </CurrencyTableCell>
-    <CurrencyTableCell>
+    </StyledTableCell>
+    <StyledTableCell>
       <AddButton onClick={() => onAddCode(code.code)}>Add to favourites</AddButton>
-    </CurrencyTableCell>
+    </StyledTableCell>
   </TableRow>
 );
 

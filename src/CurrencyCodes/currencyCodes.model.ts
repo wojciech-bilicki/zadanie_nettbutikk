@@ -6,7 +6,7 @@ export interface CurrencyCodesState {
   codes: CurrencyEntry[] | null;
 }
 
-const currencyCodes = createModel<CurrencyCodesState>({
+const currencyCodes = createModel({
   state: {
     codes: null
   },

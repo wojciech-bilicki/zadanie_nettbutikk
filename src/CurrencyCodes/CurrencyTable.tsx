@@ -1,10 +1,10 @@
-import { Paper, Table, TableBody, TableCell, TableHead, Typography } from '@material-ui/core'
+import { Paper, TableBody, TableCell, TableHead, Typography } from '@material-ui/core'
 import React, { SFC } from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import styled from 'styled-components';
 
 import onLoad from 'src/components/onLoad';
+import { StyledTable, TableTitle } from 'src/components/TableComponents';
 import { StoreDispatch, StoreState } from 'src/config/store';
 import { CurrencyCodesState } from 'src/CurrencyCodes/currencyCodes.model';
 import CurrencyRow from 'src/CurrencyCodes/CurrencyRow'
@@ -18,19 +18,14 @@ type StateProps = CurrencyCodesState;
 
 type Props = DispatchProps & StateProps;
 
-const TableStyled = styled(Table)`
-  table-layout: fixed;
-`;
 
-const TableTitle = styled(Typography)`
-  padding: 16px 0;
-`
+
 
 const CurrencyTable: SFC<Props> = ({ codes, addToFavourites }: Props) => (
   <>
     <Paper>
       <TableTitle variant="title">Currencies of the world</TableTitle>
-      <TableStyled>
+      <StyledTable>
         <TableHead>
           <TableCell>
             Currency name
@@ -51,14 +46,14 @@ const CurrencyTable: SFC<Props> = ({ codes, addToFavourites }: Props) => (
         <TableBody>
           {codes && codes.map(code => <CurrencyRow onAddCode={addToFavourites} code={code} key={code.code} />)}
         </TableBody>
-      </TableStyled>
+      </StyledTable>
     </Paper>
   </>
 )
 
 const mapDispatch = (dispatch: StoreDispatch) => ({
   loadCurrencyCodes: dispatch.currencyCodes.loadCountryCodes,
-  addToFavourites: dispatch.favourites.addToFavourites
+  addToFavourites: dispatch.favouritesModel.addToFavourites
 })
 
 const mapState = (state: StoreState) => ({
