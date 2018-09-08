@@ -1,4 +1,5 @@
 import { createModel } from '@rematch/core';
+import * as R from 'ramda';
 import { toast } from "react-toastify";
 
 import { CurrencyRating, getCurrencyRating } from 'src/Favourites/favourites.api'
@@ -15,18 +16,21 @@ const favouritesModel = createModel({
   state: initialState,
   reducers: {
     currencyRatingLoaded(state, payload: CurrencyRating) {
-      if (state.favourites === null) {
+      if (R.isNil(state.favourites)) {
         return { favourites: [payload] }
       } else {
         return { favourites: state.favourites.concat(payload) }
       }
     },
     ratingsLoaded(state, favourites: CurrencyRating[]) {
-      if (state.favourites === null) {
+      if (R.isNil(state.favourites)) {
         return { favourites }
       } else {
         return { favourites: state.favourites.concat(favourites) }
       }
+    },
+    removeFromFavourites(state: FavouritesState, code: string) {
+      return state.favourites && { favourites: state.favourites.filter(fav => fav.code !== code) };
     }
   },
   effects: {
@@ -42,7 +46,11 @@ const favouritesModel = createModel({
     async loadRatingsForCodes(codes: string[]) {
       const ratingEntires = await Promise.all(codes.map(getCurrencyRating));
       this.ratingsLoaded(ratingEntires);
-    }
+    },
+    async removeRatingForCode(code: string) {
+      removeFromStash(code);
+      this.removeFromFavourites(code);
+    },
   },
   selectors: {
     getFavouriteCodes(state: FavouritesState) {
@@ -64,6 +72,16 @@ const stashCode = (code: string) => {
     }
   } else {
     localStorage.setItem(CODES_KEY, JSON.stringify([code]));
+  }
+}
+  ;
+
+const removeFromStash = (code: string) => {
+  const codes = localStorage.getItem(CODES_KEY);
+  if (codes) {
+    const codesArray = JSON.parse(codes) as string[];
+    const updatedCodesArray = R.reject(R.equals(code), codesArray);
+    localStorage.setItem(CODES_KEY, JSON.stringify(updatedCodesArray));
   }
 }
 

@@ -1,5 +1,4 @@
 import axios from 'axios';
-import * as R from 'ramda'
 
 const api = axios.create({
   baseURL: 'http://api.nbp.pl/api/exchangerates/rates/',

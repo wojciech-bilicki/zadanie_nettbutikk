@@ -4,18 +4,21 @@ import { connect } from 'react-redux';
 
 import NoFavourites from 'src/assets/no_favourites.png';
 import { StyledTable, TableTitle } from 'src/components/TableComponents';
-import { StoreState } from 'src/config/store';
+import { StoreDispatch, StoreState } from 'src/config/store';
 import FavouriteRow from 'src/Favourites/FavouriteRow';
 import { CurrencyRating } from 'src/Favourites/favourites.api';
 
 interface StateProps {
   favourites: CurrencyRating[] | null;
 };
+interface DispatchProps {
+  removeFavourite: (code: string) => void;
+}
 
 
-type Props = StateProps;
+type Props = StateProps & DispatchProps;
 
-const FavouriteTable: SFC<Props> = ({ favourites }: Props) => {
+const FavouriteTable: SFC<Props> = ({ favourites, removeFavourite }: Props) => {
   if (!favourites) {
     return (
       <Paper>
@@ -42,12 +45,16 @@ const FavouriteTable: SFC<Props> = ({ favourites }: Props) => {
       </TableCell>
         </TableHead>
         <TableBody>
-          {favourites && favourites.map(favourite => <FavouriteRow key={favourite.code} favourite={favourite} />)}
+          {favourites && favourites.map(favourite => <FavouriteRow onRemove={() => removeFavourite(favourite.code)} key={favourite.code} favourite={favourite} />)}
         </TableBody>
       </StyledTable>
     </Paper>
   )
 }
+
+const mapDispatch = (dispatch: StoreDispatch) => ({
+  removeFavourite: dispatch.favouritesModel.removeRatingForCode
+})
 
 const mapState = (state: StoreState) => ({
   favourites: state.favouritesModel.favourites
@@ -55,4 +62,4 @@ const mapState = (state: StoreState) => ({
 
 
 
-export default connect<StateProps, null>(mapState, null)(FavouriteTable);
+export default connect<StateProps, DispatchProps>(mapState, mapDispatch)(FavouriteTable);

@@ -1,4 +1,4 @@
-import { Button } from '@material-ui/core'
+import { Button, TableRow } from '@material-ui/core'
 import React, { SFC } from 'react';
 import styled from 'styled-components';
 
@@ -14,10 +14,11 @@ const DeleteButton = styled(Button)`
 
 interface Props {
   favourite: CurrencyRating;
+  onRemove: () => void;
 }
 
-const FavouriteRow: SFC<Props> = ({ favourite: { code, rates } }: Props) => (
-  <>
+const FavouriteRow: SFC<Props> = ({ favourite: { code, rates }, onRemove }: Props) => (
+  <TableRow>
     <StyledTableCell>{code}</StyledTableCell>
     <StyledTableCell>{
       rates.map(rate => <div key={rate.no}>
@@ -27,9 +28,9 @@ const FavouriteRow: SFC<Props> = ({ favourite: { code, rates } }: Props) => (
         <p>ask: {rate.ask}</p>
       </div>)}</StyledTableCell>
     <StyledTableCell>
-      <DeleteButton>Delete</DeleteButton>
+      <DeleteButton onClick={onRemove}>Delete</DeleteButton>
     </StyledTableCell>
-  </>
+  </TableRow>
 )
 
 export default FavouriteRow;;
