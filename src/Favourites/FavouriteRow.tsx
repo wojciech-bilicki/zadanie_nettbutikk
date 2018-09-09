@@ -22,10 +22,10 @@ const FavouriteRow: SFC<Props> = ({ favourite: { code, rates }, onRemove }: Prop
     <StyledTableCell>{code}</StyledTableCell>
     <StyledTableCell>{
       rates.map(rate => <div key={rate.no}>
-        <p>no: {rate.no}</p>
-        <p>mid: {rate.mid}</p>
-        <p>bid: {rate.bid}</p>
-        <p>ask: {rate.ask}</p>
+        {rate.no && <p>no: {rate.no}</p>}
+        {rate.mid && <p>mid: {rate.mid}</p>}
+        {rate.bid && <p>bid: {rate.bid}</p>}
+        {rate.ask && <p>ask: {rate.ask}</p>}
       </div>)}</StyledTableCell>
     <StyledTableCell>
       <DeleteButton onClick={onRemove}>Delete</DeleteButton>

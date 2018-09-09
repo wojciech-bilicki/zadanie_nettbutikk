@@ -31,7 +31,12 @@ const favouritesModel = createModel({
       }
     },
     removeFromFavourites(state: FavouritesState, code: string) {
-      return state.favourites && { favourites: state.favourites.filter(fav => fav.code !== code) };
+      const favourites = state.favourites && state.favourites.filter(fav => fav.code !== code);
+      if (!favourites || favourites.length === 0) {
+        return initialState;
+      }
+
+      return state.favourites && { favourites };
     }
   },
   effects: {

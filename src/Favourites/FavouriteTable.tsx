@@ -19,7 +19,7 @@ interface DispatchProps {
 type Props = StateProps & DispatchProps;
 
 const FavouriteTable: SFC<Props> = ({ favourites, removeFavourite }: Props) => {
-  if (!favourites) {
+  if (!favourites || favourites.length === 0) {
     return (
       <Paper>
         <img src={NoFavourites} />

@@ -43,7 +43,7 @@ class AddButton extends React.Component<Props, State> {
     return (
       <Wrapper>
         <ActionButton disabled={isDisabled} onClick={this.onAdd}>{children}</ActionButton>
-        {isLoading && <Loader />}
+        {isLoading && <Loader data-testid="loader"/>}
       </Wrapper>
     )
   }

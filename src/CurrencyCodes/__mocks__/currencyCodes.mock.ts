@@ -1,4 +1,5 @@
 import * as R from 'ramda';
+import { CurrencyEntry } from 'src/CurrencyCodes/currencyCodes.api';
 
 const countries = [{
 
@@ -80,7 +81,7 @@ const responseCountries = [{
 }
 ]
 
-const parsedCountries = R.sortWith([R.ascend(R.prop('code'))], responseCountries)
+const parsedCountries = R.sortWith([R.ascend(R.prop('code'))], responseCountries) as CurrencyEntry[];
 
 export {
   parsedCountries,
