@@ -13,7 +13,7 @@ Project has been built using pretty standard SPA architecture. To run project on
 2. There are examples of how to test `Rematch` models and components in the project
 3. Rematch was used instead of "standard" Redux as it is less verbose, easier to scale and reason about.
 4. Project is using another API `https://restcountries.eu` to fetch the data about the currencies in countries all over the world.
-5. For some currencies there's simply no data in `http://api.nbp.pl`. It that's the case red alert (remember the game? xD) is displayed for the user. This can be tested while clicking `Add to favourites` on currency with `Currency code` `(none) <Faroese króna>`.
+5. For some currencies there's simply no data in `http://api.nbp.pl`. If that's the case red alert (remember the game? xD) is displayed for the user. This can be tested while clicking `Add to favourites` on currency with `Currency code` `(none) <Faroese króna>`.
 6. Project doesn't scale well into the RWD, if that's the requirement please inform me about it and provide additional time to implement this feature.
 7. Project doesn't use `React-Router` or any other routing solution as it's just too simple.
 8. Project can be viewed live at http://currency-tracker.surge.sh
